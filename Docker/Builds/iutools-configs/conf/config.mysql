@@ -1,0 +1,4 @@
+CREATE USER iutools_user IDENTIFIED  BY 'Inuktitut!6';
+CREATE DATABASE iutools_db;
+GRANT ALL PRIVILEGES ON iutools_db.* TO iutools_user;
+FLUSH PRIVILEGES;

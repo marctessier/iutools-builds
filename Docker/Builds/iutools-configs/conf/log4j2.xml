@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Every 30 secs, log4j2 will check this file to see if the configuration has changed -->
+<Configuration monitorInterval="30">
+
+
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <!-- Use this pattern if you don't care about the thread and timing
+                                  info -->
+            <PatternLayout pattern="\-\- %c{2}: %msg%n"/>
+
+            <!-- Use this pattern if you want the log message to include info
+                                  about the thread and timing -->
+            <!-- <PatternLayout pattern="\-\- %c{2}[%t@%d{HH:mm:ss.SSS}]: %msg%n"/> -->
+        </Console>
+
+
+        <RollingRandomAccessFile name="LogToRollingRandomAccessFile" fileName="/var/iutools/logs/tomcat-apps.log"
+                                 filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+
+            <!-- Use this pattern if you don't care about the thread and timing
+                                  info -->
+            <PatternLayout pattern="\-\- %c{2}: %msg%n"/>
+
+          <!-- Use this pattern if you want the log message to include info
+                                about the thread and timing -->
+            <!--
+                             <PatternLayout pattern="\-\- %c{2}[%t@%d{HH:mm:ss.SSS}]: %msg%n"/>
+            -->
+
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+
+        <Root level="off" additivity="false">
+          <AppenderRef ref="LogToRollingRandomAccessFile"/>
+          <AppenderRef ref="LogToConsole"/>
+        </Root>
+
+        <Logger name="org.iutools.worddict.MachineGeneratedDict.entry4word" additivity="true"
+           level="off"/>
+
+        <Logger name="org.iutools.worddict.Glossary.onNewGlossaryEntry" additivity="true"
+           level="off"/>
+
+        <Logger name="org.iutools.worddict.MachineGeneratedDict.fillGlossaryEntries" additivity="true"
+           level="off"/>
+
+        <Logger name="org.iutools.sql.ConnectionPool.getConnection" additivity="true"
+           level="trace"/>
+
+        <Logger name="org.iutools.sql.ConnectionPool.dataSource4DB" additivity="true"
+           level="trace"/>
+
+
+    </Loggers>
+
+
+</Configuration>
+
